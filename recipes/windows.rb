@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: teamcity
-# Recipe:: database
+# Recipe:: windows
 #
 # Copyright (C) 2016 Antek S. Baranski
 #

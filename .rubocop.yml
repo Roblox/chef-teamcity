@@ -1,13 +1,7 @@
 AllCops:
-  Excludes:
-    - vendor/**
-    - tmp/**
+  Exclude:
+    - .kitchen/*
+    - vendor/**/*
 
 LineLength:
-  Enabled: false
-
-Encoding:
-  Enabled: false
-
-StringLiterals:
-  Enabled: false
+  Max: 120

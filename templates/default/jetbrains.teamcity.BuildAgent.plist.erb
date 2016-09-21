@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>WorkingDirectory</key>
+	<string><%= @work_dir %></string>
+	<key>Debug</key>
+	<false/>
+	<key>Label</key>
+	<string>jetbrains.teamcity.BuildAgent</string>
+	<key>OnDemand</key>
+	<false/>
+	<key>KeepAlive</key>
+	<true/>
+	<key>ProgramArguments</key>
+	<array>
+		<string>bash</string>
+		<string>--login</string>
+		<string>-c</string>
+		<string><%= @path %>/launcher/bin/TeamCityAgentService-macosx-universal-32 -c ../conf/wrapper.conf</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>logs/launchd.err.log</string>
+	<key>StandardOutPath</key>
+	<string>logs/launchd.out.log</string>
+</dict>
+</plist>
