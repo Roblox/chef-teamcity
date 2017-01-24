@@ -1,26 +1,46 @@
 ---
 driver:
   name: vagrant
-
-platforms:
-  - name: ubuntu-13.04-teamcity
+  provider: vmware_fusion
 
 provisioner:
-  solo_rb:
-    file_cache_path: /var/chef/cache/
+  name: chef_zero
 
+platforms:
+#  - name: centos-6.7
+#  - name: centos-7.2
+  - name: ubuntu-14.04
+    run_list:
+    - recipe[apt]
+  - name: ubuntu-16.04
+    run_list:
+    - recipe[apt]
+  - name: macosx-10.11
+    driver:
+      network:
+        - ["private_network", {ip: '10.10.10.12'}]
+  - name: macosx-10.12
+    driver:
+      network:
+        - ["private_network", {ip: '10.10.10.13'}]
 suites:
   - name: default
-    run_list: 
-      - recipe[teamcity]
-      - recipe[teamcity::monit]
-      - recipe[teamcity::test]
-      - recipe[minitest-handler]
-    attributes: {
-      postgresql: {
-        password: {
-          postgres: 'pass123',
-          teamcity: 'pass456'
-        }
-      }
-    }
+    run_list:
+      - recipe[teamcity::default]
+    attributes:
+      teamcity:
+        server:
+          url: 'http://10.10.10.10:8111'
+  - name: server
+    driver:
+      customize:
+        memory: 1024
+      network:
+        - ["private_network", {ip: '10.10.10.10'}]
+        - ["forwarded_port", {guest: 80, host: 8080}]
+        - ["forwarded_port", {guest: 8111, host: 8811}]
+    run_list:
+      - recipe[teamcity::server]
+    excludes:
+      - macosx-10.11
+      - macosx-10.12

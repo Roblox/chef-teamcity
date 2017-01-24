@@ -5,39 +5,33 @@
 ######################################
 
 ## The address of the TeamCity server. The same as is used to open TeamCity web interface in the browser.
-serverUrl=<%= @url %>
+## Example:  serverUrl=https://buildserver.mydomain.com:8111
+serverUrl=<%= @serverurl %>
 
 ## The unique name of the agent used to identify this agent on the TeamCity server
-## Use blank name to let server generate it. By default, this name would be created from the build agent's host name
+## Use blank name to let server generate it.
+## By default, this name would be created from the build agent's host name
 name=<%= @name %>
 
 ## Container directory to create default checkout directories for the build configurations.
-workDir=../work
+## TeamCity agent assumes ownership of the directory and will delete unknown directories inside.
+workDir=<%= @work_dir %>/work
 
 ## Container directory for the temporary directories.
-## Please note that the directory may be cleaned between the builds.
-tempDir=../temp
+## TeamCity agent assumes ownership of the directory. The directory may be cleaned between the builds.
+tempDir=<%= @work_dir %>/temp
 
-## Container directory for agent system files
-systemDir=../system
+## Container directory for agent state files and caches.
+## TeamCity agent assumes ownership of the directory and can delete content inside.
+systemDir=<%= @work_dir %>/system
+
 
 ######################################
 #   Optional Agent Properties        #
 ######################################
 
-## The IP address which will be used by TeamCity server to connect to the build agent.
-## If not specified, it is detected by build agent automatically,
-## but if the machine has several network interfaces, automatic detection may fail.
-#ownAddress=<own IP address or server-accessible domain name>
-
-## Optional
-## A port that TeamCity server will use to connect to the agent.
-## Please make sure that incoming connections for this port
-## are allowed on the agent computer (e.g. not blocked by a firewall)
-ownPort=9090
-
-## A token which is used to identify this agent on the TeamCity server.
-## It is automatically generated and saved on the first agent connection to the server.
+## A token which is used to identify this agent on the TeamCity server for agent authorization purposes.
+## It is automatically generated and saved back on the first agent connection to the server.
 authorizationToken=
 
 
