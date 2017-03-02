@@ -49,7 +49,7 @@ bash 'Create Mac OS X teamcity agent user' do
     /usr/bin/dscl . -create #{home_dir} PrimaryGroupID 20
     /usr/bin/dscl . -create #{home_dir} NFSHomeDirectory #{home_dir}
     /usr/bin/dscl . -passwd #{home_dir} #{Shellwords.escape(password)}
-    /usr/sbin/createhomedir -c -u node['teamcity']['agent']['user']
+    /usr/sbin/createhomedir -c -u #{node['teamcity']['agent']['user']}
     /usr/local/bin/kcpassword #{Shellwords.escape(password)}
     /usr/bin/defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser '#{node['teamcity']['agent']['user']}'
     sw_vers=$(sw_vers -productVersion)
@@ -59,7 +59,7 @@ bash 'Create Mac OS X teamcity agent user' do
     /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant GestureMovieSeen none
     /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastSeenCloudProductVersion "${sw_vers}"
     /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastSeenBuddyBuildVersion "${sw_build}"
-    /usr/sbin/chown -R teamcity:staff #{home_dir}
+    /usr/sbin/chown -R #{node['teamcity']['agent']['user']}:#{node['teamcity']['agent']['group']} #{home_dir}
   EOH
   sensitive true
   not_if { ::File.exist?("#{home_dir}/Library/Preferences/com.apple.SetupAssistant.plist") }
