@@ -17,7 +17,8 @@
 # limitations under the License.
 
 user node['teamcity']['agent']['user'] do
-  uid node['teamcity']['agent']['uid']
+  uid node['teamcity']['agent']['uid'] if platform_family?('mac_os_x')
+  manage_home true
   action :create
 end
 
@@ -60,6 +61,13 @@ unless platform_family?('windows')
     action :create
   end
 
+  directory ::File.join(root_dir, 'logs') do
+    owner node['teamcity']['agent']['user']
+    group node['teamcity']['agent']['group']
+    mode '00755'
+    action :create
+  end
+
   template ::File.join(root_dir, 'conf', 'buildAgent.properties') do
     source 'buildAgent.properties.erb'
     variables serverurl: node['teamcity']['server']['url'],
@@ -84,3 +92,5 @@ when 'mac_os_x'
 when 'windows'
   include_recipe 'teamcity::windows'
 end
+
+include_recipe 'teamcity::linux' if node['os'] == 'linux'

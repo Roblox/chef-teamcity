@@ -32,7 +32,7 @@ default['teamcity']['agent']['install_dir'] = '/opt'
 default['teamcity']['agent']['work_dir'] = '/var/teamcity-agent'
 default['teamcity']['agent']['name'] = node['hostname']
 default['teamcity']['agent']['user'] = 'teamcity'
-default['teamcity']['agent']['uid'] = 1023
+default['teamcity']['agent']['uid'] = 1023 if platform_family?('mac_os_x')
 default['teamcity']['agent']['group'] = platform_family?('mac_os_x') ? 'staff' : 'users'
 default['teamcity']['agent']['home'] = platform_family?('mac_os_x') ? '/Users' : '/home'
 

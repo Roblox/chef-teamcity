@@ -1,3 +1,7 @@
+##2.1.0
+* Added systemd config systemctl
+* Cleanup mac_os_x recipe of hardcoded username & group
+
 ##2.0.1
 * Bump Homebrew version
 
