@@ -29,8 +29,6 @@ include_recipe 'homebrew'
 homebrew_tap 'xfreebird/utils'
 package 'kcpassword'
 
-# NOTE: Brew does not tag the latest java version with an ID, therefore we must override it to get the latest.
-node.override['java']['jdk_version'] = ''
 include_recipe 'java'
 
 home_dir = ::File.join(node['teamcity']['agent']['home'], node['teamcity']['agent']['user'])
