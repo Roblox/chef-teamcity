@@ -36,7 +36,5 @@ default['teamcity']['agent']['uid'] = 1023 if platform_family?('mac_os_x')
 default['teamcity']['agent']['group'] = platform_family?('mac_os_x') ? 'staff' : 'users'
 default['teamcity']['agent']['home'] = platform_family?('mac_os_x') ? '/Users' : '/home'
 
-# Cookbook dependencies
-# NOTE: For OS X we override this in the mac_os_x recipe with nil because brew
-# does not append a version for the latest java install
-default['java']['jdk_version'] = 8
+# NOTE: Brew does not tag the latest java version with an ID, therefore we must 'nil' it to get the latest.
+default['java']['jdk_version'] = platform_family?('mac_os_x') ? '' : '8'

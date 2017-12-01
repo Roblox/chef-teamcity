@@ -1,3 +1,9 @@
+##2.2.0
+* Cleanup java version attribute selection
+* Bump homebrew ~> 4.2
+* Bump java ~> 1.50
+* Bump runit ~> 4.0
+
 ##2.1.0
 * Added systemd config systemctl
 * Cleanup mac_os_x recipe of hardcoded username & group
