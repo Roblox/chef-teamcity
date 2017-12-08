@@ -1,3 +1,6 @@
+##3.0.0
+* Adding Windows build agents
+
 ##2.2.0
 * Cleanup java version attribute selection
 * Bump homebrew ~> 4.2

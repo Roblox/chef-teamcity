@@ -28,13 +28,20 @@ default['teamcity']['server']['pid_file'] = '/usr/local/teamcity-server/logs/cat
 default['teamcity']['server']['data_path'] = '/var/teamcity-server/data'
 
 # TeamCity Agent Attributes
-default['teamcity']['agent']['install_dir'] = '/opt'
-default['teamcity']['agent']['work_dir'] = '/var/teamcity-agent'
+default['teamcity']['agent']['install_dir'] = platform_family?('windows') ? 'C:\\' : '/opt'
+default['teamcity']['agent']['work_dir'] = platform_family?('windows') ? 'C:\\teamcity-agent' : '/var/teamcity-agent'
 default['teamcity']['agent']['name'] = node['hostname']
 default['teamcity']['agent']['user'] = 'teamcity'
 default['teamcity']['agent']['uid'] = 1023 if platform_family?('mac_os_x')
 default['teamcity']['agent']['group'] = platform_family?('mac_os_x') ? 'staff' : 'users'
-default['teamcity']['agent']['home'] = platform_family?('mac_os_x') ? '/Users' : '/home'
+default['teamcity']['agent']['home'] =  case node['platform_family']
+                                          when 'mac_os_x'
+                                            '/Users'
+                                          when 'windows'
+                                            'C:\Users'
+                                          else
+                                            '/home'
+                                        end
 
 # NOTE: Brew does not tag the latest java version with an ID, therefore we must 'nil' it to get the latest.
 default['java']['jdk_version'] = platform_family?('mac_os_x') ? '' : '8'
