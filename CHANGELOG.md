@@ -1,3 +1,6 @@
+##3.0.1
+* Fix OS X issues with `home` parameter on user resource
+
 ##3.0.0
 * Adding Windows build agents
 
