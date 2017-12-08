@@ -18,9 +18,11 @@
 
 home_dir = ::File.join(node['teamcity']['agent']['home'], node['teamcity']['agent']['user'])
 
+# The `home` parameter even when set throws an nil exception when converging on OS X.
+#TODO: Figure out why `home` is nil on OS X.
 user node['teamcity']['agent']['user'] do
   uid node['teamcity']['agent']['uid'] if platform_family?('mac_os_x')
-  home home_dir
+  home home_dir unless platform_family?('mac_os_x')
   manage_home true
   action :create
 end
