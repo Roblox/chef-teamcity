@@ -16,8 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+home_dir = ::File.join(node['teamcity']['agent']['home'], node['teamcity']['agent']['user'])
+
 user node['teamcity']['agent']['user'] do
   uid node['teamcity']['agent']['uid'] if platform_family?('mac_os_x')
+  home home_dir
   manage_home true
   action :create
 end
@@ -28,60 +31,69 @@ group node['teamcity']['agent']['group'] do
   action :create
 end
 
-unless platform_family?('windows')
-  root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
+directory home_dir do
+  action :create
+  owner node['teamcity']['agent']['user']
+  group node['teamcity']['agent']['group']
+  mode '00755'
+end
 
-  source = if node['teamcity']['agent']['source_url']
-             node['teamcity']['agent']['source_url']
-           else
-             "#{node['teamcity']['server']['url']}/update/buildAgent.zip"
-           end
+root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
 
-  ark 'teamcity-agent' do
-    url source
-    path node['teamcity']['agent']['install_dir']
-    strip_components 0
-    owner node['teamcity']['agent']['user']
-    group node['teamcity']['agent']['group']
-    action :put
-  end
+source = node['teamcity']['agent']['source_url'].nil? ?
+           "#{node['teamcity']['server']['url']}/update/buildAgent.zip" : node['teamcity']['agent']['source_url']
 
-  directory node['teamcity']['agent']['work_dir'] do
-    recursive true
-    owner node['teamcity']['agent']['user']
-    group node['teamcity']['agent']['group']
-    mode '00755'
-    action :create
-  end
+ark 'teamcity-agent' do
+  url source
+  path node['teamcity']['agent']['install_dir']
+  strip_components 0
+  owner node['teamcity']['agent']['user']
+  group node['teamcity']['agent']['group']
+  action :put
+end
 
-  directory ::File.join(node['teamcity']['agent']['work_dir'], 'logs') do
-    owner node['teamcity']['agent']['user']
-    group node['teamcity']['agent']['group']
-    mode '00755'
-    action :create
-  end
+directory node['teamcity']['agent']['work_dir'] do
+  recursive true
+  owner node['teamcity']['agent']['user']
+  group node['teamcity']['agent']['group']
+  mode '00755'
+  action :create
+end
 
-  directory ::File.join(root_dir, 'logs') do
-    owner node['teamcity']['agent']['user']
-    group node['teamcity']['agent']['group']
-    mode '00755'
-    action :create
-  end
+directory ::File.join(node['teamcity']['agent']['work_dir'], 'logs') do
+  owner node['teamcity']['agent']['user']
+  group node['teamcity']['agent']['group']
+  mode '00755'
+  action :create
+end
 
-  template ::File.join(root_dir, 'conf', 'buildAgent.properties') do
-    source 'buildAgent.properties.erb'
-    variables serverurl: node['teamcity']['server']['url'],
-              name: node['teamcity']['agent']['name'],
-              work_dir: node['teamcity']['agent']['work_dir']
-    owner node['teamcity']['agent']['user']
-    group node['teamcity']['agent']['group']
-    mode '00644'
-    only_if do
-      if ::File.exist?(::File.join(root_dir, 'conf', 'buildAgent.properties'))
-        ::File.foreach(::File.join(root_dir, 'conf', 'buildAgent.properties')).grep(/authorizationToken=$/).any?
-      else
-        true
-      end
+directory ::File.join(root_dir, 'temp') do
+  owner node['teamcity']['agent']['user']
+  group node['teamcity']['agent']['group']
+  mode '00755'
+  action :create
+end
+
+directory ::File.join(root_dir, 'conf') do
+  owner node['teamcity']['agent']['user']
+  group node['teamcity']['agent']['group']
+  mode '00755'
+  action :create
+end
+
+template ::File.join(root_dir, 'conf', 'buildAgent.properties') do
+  source 'buildAgent.properties.erb'
+  variables serverurl: node['teamcity']['server']['url'],
+            name: node['teamcity']['agent']['name'],
+            work_dir: node['teamcity']['agent']['work_dir']
+  owner node['teamcity']['agent']['user']
+  group node['teamcity']['agent']['group']
+  mode '00644'
+  only_if do
+    if ::File.exist?(::File.join(root_dir, 'conf', 'buildAgent.properties'))
+      ::File.foreach(::File.join(root_dir, 'conf', 'buildAgent.properties')).grep(/authorizationToken=$/).any?
+    else
+      true
     end
   end
 end

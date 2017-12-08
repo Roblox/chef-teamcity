@@ -15,3 +15,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Do not run this recipe if the node is not a MS Windows node
+return unless platform_family?('windows')
+
+# Setup TemaCity Build Agent as a service.
+# NOTE: The Name, DisplayName & Description MUST not change, they are tied to the the wrapper.conf script that comes
+# with the TeamCity Build Agent zip file.
+dsc_resource 'TeamCity BuildAgent Service' do
+  resource :service
+  property :name, 'TCBuildAgent'
+  property :ensure, 'Present'
+  property :builtinaccount, 'LocalSystem'
+  property :startuptype, 'Automatic'
+  property :state, 'Running'
+  property :description, 'TeamCity Build Agent Service'
+  property :displayname, 'TeamCity Build Agent'
+  property :path, "#{node['teamcity']['agent']['work_dir']}\\launcher\\bin\\TeamCityAgentService-windows-x86-32.exe -s #{node['teamcity']['agent']['work_dir']}\\launcher\\conf\\wrapper.conf"
+end
