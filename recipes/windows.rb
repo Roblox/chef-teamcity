@@ -23,13 +23,23 @@ return unless platform_family?('windows')
 # NOTE: The Name, DisplayName & Description MUST not change, they are tied to the the wrapper.conf script that comes
 # with the TeamCity Build Agent zip file.
 dsc_resource 'TeamCity BuildAgent Service' do
+  action :nothing
   resource :service
   property :name, 'TCBuildAgent'
   property :ensure, 'Present'
-  property :builtinaccount, 'LocalSystem'
+  property :builtinaccount, 'NetworkService'
   property :startuptype, 'Automatic'
   property :state, 'Running'
   property :description, 'TeamCity Build Agent Service'
   property :displayname, 'TeamCity Build Agent'
   property :path, "#{node['teamcity']['agent']['work_dir']}\\launcher\\bin\\TeamCityAgentService-windows-x86-32.exe -s #{node['teamcity']['agent']['work_dir']}\\launcher\\conf\\wrapper.conf"
+end
+
+# This block ensures that the TeamCity BuildAgent Service is created at the very end of the convergense, such that any
+# paths and other ENV variables are picked up by the service when it starts
+ruby_block 'Setup TeamCity BuildAgent Service' do
+  block do
+    true
+  end
+  notifies :run, 'dsc_resource[TeamCity BuildAgent Service]', :delayed
 end
