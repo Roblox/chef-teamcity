@@ -1,3 +1,5 @@
+##3.0.3
+* TC BuildAgent must run as LocalSystem because of file system permission issues
 ##3.0.2
 * Use NetworkService to run TCBuildAgent
 * Delay start of TCBuildAgent Service to the very end of the convergence
