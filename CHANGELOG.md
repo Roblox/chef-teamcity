@@ -1,3 +1,6 @@
+##3.0.5
+* Let TC Build Agent kill chef-client run, ensures that subsequent reboot requsts go through
+
 ##3.0.4
 * Fix typo in LocalSystem user name
 

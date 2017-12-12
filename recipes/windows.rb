@@ -19,11 +19,11 @@
 # Do not run this recipe if the node is not a MS Windows node
 return unless platform_family?('windows')
 
-# Setup TemaCity Build Agent as a service.
+# Setup TemaCity Build Agent as a service, this kill the chef-client run on first time as the TC Build Agent disconnects
+# immediately from the server to upgrade which causes this resource to fail.
 # NOTE: The Name, DisplayName & Description MUST not change, they are tied to the the wrapper.conf script that comes
 # with the TeamCity Build Agent zip file.
-dsc_resource 'TeamCity BuildAgent Service' do
-  action :nothing
+dsc_resource 'Setup TeamCity BuildAgent Service' do
   resource :service
   property :name, 'TCBuildAgent'
   property :ensure, 'Present'
@@ -33,13 +33,4 @@ dsc_resource 'TeamCity BuildAgent Service' do
   property :description, 'TeamCity Build Agent Service'
   property :displayname, 'TeamCity Build Agent'
   property :path, "#{node['teamcity']['agent']['work_dir']}\\launcher\\bin\\TeamCityAgentService-windows-x86-32.exe -s #{node['teamcity']['agent']['work_dir']}\\launcher\\conf\\wrapper.conf"
-end
-
-# This block ensures that the TeamCity BuildAgent Service is created at the very end of the convergense, such that any
-# paths and other ENV variables are picked up by the service when it starts
-ruby_block 'Setup TeamCity BuildAgent Service' do
-  block do
-    true
-  end
-  notifies :run, 'dsc_resource[TeamCity BuildAgent Service]', :delayed
 end
