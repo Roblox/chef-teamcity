@@ -27,7 +27,7 @@ dsc_resource 'TeamCity BuildAgent Service' do
   resource :service
   property :name, 'TCBuildAgent'
   property :ensure, 'Present'
-  property :builtinaccount, 'Local System'
+  property :builtinaccount, 'LocalSystem'
   property :startuptype, 'Automatic'
   property :state, 'Running'
   property :description, 'TeamCity Build Agent Service'

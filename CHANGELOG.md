@@ -1,3 +1,6 @@
+##3.0.4
+* Fix typo in LocalSystem user name
+
 ##3.0.3
 * TC BuildAgent must run as LocalSystem because of file system permission issues
 ##3.0.2
