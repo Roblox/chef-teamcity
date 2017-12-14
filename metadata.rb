@@ -4,7 +4,7 @@ maintainer_email 'antek.baranski@gmail.com'
 license          'Apache License, Version 2.0'
 description      'Installs TeamCity server and agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '3.0.5'
+version          '3.0.6'
 
 recipe 'teamcity::default', 'Installs TeamCity Agent on target OS'
 recipe 'teamcity::server', 'Installs TeamCity Server on CentOS or Ubuntu'

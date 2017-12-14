@@ -1,3 +1,6 @@
+##3.0.6
+* Add service resource declaration for TCBuildAgent
+
 ##3.0.5
 * Let TC Build Agent kill chef-client run, ensures that subsequent reboot requsts go through
 
