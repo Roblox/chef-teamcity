@@ -1,3 +1,6 @@
+##3.0.7
+* Bump TC server to 2017.2.4
+
 ##3.0.6
 * Add service resource declaration for TCBuildAgent
 
