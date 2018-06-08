@@ -17,8 +17,8 @@
 # limitations under the License.
 
 # TeamCity Server Attributes
-default['teamcity']['server']['source_url'] = 'https://download.jetbrains.com/teamcity/TeamCity-10.0.2.tar.gz'
-default['teamcity']['server']['checksum'] = '35abb03ed176c8326adc86cac17a93412c7248277d9aae422b89be17edff8f97'
+default['teamcity']['server']['source_url'] = 'https://download.jetbrains.com/teamcity/TeamCity-2017.2.4.tar.gz'
+default['teamcity']['server']['checksum'] = '8d21480da9392709efd6dd6cb7b513211a45e462909799b5b880e36def1522fc'
 default['teamcity']['server']['url'] = 'http://localhost:8111'
 default['teamcity']['server']['port'] = '8111'
 default['teamcity']['server']['user'] = 'teamcity'
