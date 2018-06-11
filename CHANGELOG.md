@@ -1,3 +1,6 @@
+## 3.0.8
+* Bump ark ~> 3.0
+
 ##3.0.7
 * Bump TC server to 2017.2.4
 
