@@ -19,7 +19,7 @@
 home_dir = ::File.join(node['teamcity']['agent']['home'], node['teamcity']['agent']['user'])
 
 # The `home` parameter even when set throws an nil exception when converging on OS X.
-#TODO: Figure out why `home` is nil on OS X.
+# TODO: Figure out why `home` is nil on OS X.
 user node['teamcity']['agent']['user'] do
   uid node['teamcity']['agent']['uid'] if platform_family?('mac_os_x')
   home home_dir unless platform_family?('mac_os_x')
@@ -42,8 +42,13 @@ end
 
 root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
 
-source = node['teamcity']['agent']['source_url'].nil? ?
-           "#{node['teamcity']['server']['url']}/update/buildAgent.zip" : node['teamcity']['agent']['source_url']
+source = node['teamcity']['agent']['source_url']
+source = "#{node['teamcity']['server']['url']}/update/buildAgent.zip" if source.nil?
+
+if platform_family?('windows')
+  node.default['seven_zip']['syspath'] = true
+  include_recipe 'seven_zip::default'
+end
 
 ark 'teamcity-agent' do
   url source

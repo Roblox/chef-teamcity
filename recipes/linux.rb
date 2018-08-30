@@ -22,7 +22,7 @@ return unless node['os'] == 'linux'
 root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
 
 systemd_service 'teamcity_agent' do
-  description 'TeamCity Agent'
+  unit_description 'TeamCity Agent'
   after 'network.target'
 
   install do

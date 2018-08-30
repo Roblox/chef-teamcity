@@ -28,8 +28,14 @@ dsc_resource 'Setup TeamCity BuildAgent Service' do
   property :name, 'TCBuildAgent'
   property :ensure, 'Present'
   property :builtinaccount, 'LocalSystem'
-  property :startuptype, 'Automatic'
-  property :state, 'Running'
+  case node['teamcity']['agent']['windows_service']['startuptype']
+  when 'Manual'
+    property :startuptype, 'Manual'
+    property :state, 'Stopped'
+  else
+    property :startuptype, 'Automatic'
+    property :state, 'Running'
+  end
   property :description, 'TeamCity Build Agent Service'
   property :displayname, 'TeamCity Build Agent'
   property :path, "#{node['teamcity']['agent']['work_dir']}\\launcher\\bin\\TeamCityAgentService-windows-x86-32.exe -s #{node['teamcity']['agent']['work_dir']}\\launcher\\conf\\wrapper.conf"
