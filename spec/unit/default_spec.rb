@@ -1,10 +1,35 @@
 require_relative '../spec_helper'
 
 describe 'teamcity::default' do
+  {
+    'ubuntu' => '16.04',
+    'centos' => '7.2',
+  }.each do |p, v|
+    describe p do
+      let(:platform) { p }
+      let(:version) { v }
+      let(:runner) { get_runner(platform, version) }
+
+      cached(:chef_run) do
+        runner.converge(described_recipe)
+      end
+
+      describe 'java' do
+        it 'includes the java recipe' do
+          expect(chef_run).to include_recipe('java')
+        end
+      end
+    end
+  end
+
   describe 'windows' do
     let(:platform) { 'windows' }
     let(:version) { '2016' }
-    let(:runner) { get_runner(platform, version) }
+    let(:runner) do
+      r = get_runner(platform, version)
+      r.node.normal['java']['windows']['url'] = 'http://foo.bar.local'
+      r
+    end
 
     cached(:chef_run) do
       runner.converge(described_recipe)
@@ -16,6 +41,12 @@ describe 'teamcity::default' do
         # doesn't work here
         expect(chef_run.node['seven_zip']['syspath']).to be_truthy
         expect(chef_run).to include_recipe('seven_zip::default')
+      end
+    end
+
+    describe 'java' do
+      it 'includes the java::windows recipe' do
+        expect(chef_run).to include_recipe('java::windows')
       end
     end
 

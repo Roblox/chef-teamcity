@@ -47,5 +47,6 @@ default['teamcity']['agent']['windows_service']['startuptype'] = 'Automatic'
 
 # NOTE: Brew does not tag the latest java version with an ID, therefore we must 'nil' it to get the latest.
 default['java']['jdk_version'] = platform_family?('mac_os_x') ? '' : '8'
+default['java']['windows']['url'] = nil
 default['java']['windows']['package_name'] = 'Java SE Development Kit 8 Update 152 (64-bit)'
-default['java']['windows']['checksum'] = 'f9aafc51ae722f50463e7c2d875e8310f8d5145803cd1ed8d9044b358a56f36a'
+default['java']['windows']['checksum'] = nil
