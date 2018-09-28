@@ -29,8 +29,6 @@ include_recipe 'homebrew'
 homebrew_tap 'xfreebird/utils'
 package 'kcpassword'
 
-include_recipe 'java'
-
 home_dir = ::File.join(node['teamcity']['agent']['home'], node['teamcity']['agent']['user'])
 root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
 

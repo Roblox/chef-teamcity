@@ -27,7 +27,7 @@ platforms:
         - ["private_network", {ip: '10.10.10.13'}]
   - name: windows-2016
     driver:
-      box_url: '<%= ENV['KITCHEN_WINDOWS_BOX_URL'] %>'
+      box_url: '<%= ENV["KITCHEN_WINDOWS_BOX_URL"] %>'
       box_check_update: false
       gui: false
       customize:
@@ -40,12 +40,18 @@ suites:
     run_list:
       - recipe[teamcity::default]
     attributes:
+<% if ENV['KITCHEN_TEAMCITY_WINDOWS_JAVA_URL'] %>
+      java:
+        windows:
+          url: '<%= ENV["KITCHEN_TEAMCITY_WINDOWS_JAVA_URL"] %>'
+          checksum: '<%= ENV["KITCHEN_TEAMCITY_WINDOWS_JAVA_CHECKSUM"] %>'
+<% end %>
       teamcity:
         agent:
           windows_service:
             startuptype: 'Manual'
         server:
-          url: '<%= ENV['KITCHEN_TEAMCITY_SERVER'] || '10.10.10.10:8111' %>'
+          url: '<%= ENV["KITCHEN_TEAMCITY_SERVER"] || "10.10.10.10:8111" %>'
   - name: server
     driver:
       customize:

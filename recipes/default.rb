@@ -50,6 +50,12 @@ if platform_family?('windows')
   include_recipe 'seven_zip::default'
 end
 
+if platform_family?('windows')
+  include_recipe 'java::windows'
+else
+  include_recipe 'java'
+end
+
 ark 'teamcity-agent' do
   url source
   path node['teamcity']['agent']['install_dir']
