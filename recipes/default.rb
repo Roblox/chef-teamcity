@@ -25,6 +25,8 @@ user node['teamcity']['agent']['user'] do
   home home_dir unless platform_family?('mac_os_x')
   manage_home true
   action :create
+  # https://github.com/chef/chef/issues/7763
+  not_if { ::File.exist?("#{home_dir}/Library/Preferences/com.apple.SetupAssistant.plist") }
 end
 
 group node['teamcity']['agent']['group'] do
