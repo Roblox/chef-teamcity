@@ -22,6 +22,12 @@ Installs TeamCity server and agent
 * seven_zip
 * systemd
 
+# Recipes
+
+* teamcity::default - Installs TeamCity Agent on target OS
+* teamcity::server - Installs TeamCity Server on CentOS or Ubuntu
+
+
 # Attributes
 ### `node['rblx_teamcity']`...
 
@@ -30,159 +36,157 @@ Installs TeamCity server and agent
     <tr>
       <td>
         <code>node['teamcity']['server']['source_url']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>https://download.jetbrains.com/teamcity/TeamCity-2017.2.4.tar.gz</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['checksum']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>8d21480da9392709efd6dd6cb7b513211a45e462909799b5b880e36def1522fc</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['url']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>http://localhost:8111</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['port']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>8111</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['user']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>teamcity</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['group']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>users</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['install_dir']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>/opt</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['pid_file']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>/usr/local/teamcity-server/logs/catalina.pid</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['server']['data_path']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>/var/teamcity-server/data</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['install_dir']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\' : '/opt</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['work_dir']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\teamcity-agent' : '/var/teamcity-agent</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['name']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>node['hostname']</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['user']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>teamcity</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['uid']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>1023 if platform_family?('mac_os_x')</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['group']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>platform_family?('mac_os_x') ? 'staff' : 'users</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['home']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>case node['platform_family']</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['teamcity']['agent']['windows_service']['startuptype']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>Automatic</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['jdk_version']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>platform_family?('mac_os_x') ? '' : '8</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['windows']['url']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>nil</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['windows']['package_name']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>Java SE Development Kit 8 Update 152 (64-bit)</code></div>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['windows']['checksum']</code>
-        <br><br>
+        <br>
         <div><br><br><strong>Default:</strong> <code>nil</code></div>
       </td>
     </tr>
   </tbody>
 </table>
 
-# Recipes
 
-* teamcity::default - Installs TeamCity Agent on target OS
-* teamcity::server - Installs TeamCity Server on CentOS or Ubuntu
+# Info
 
-# License and Maintainer
+## License and Maintainer
 
 Maintainer:: Roblox (<info@roblox.com>)
 
@@ -191,3 +195,8 @@ Source:: https://github.com/Roblox/chef-teamcity
 Issues:: https://github.com/Roblox/chef-teamcity/issues
 
 License:: Apache-2.0
+
+## Credits
+
+* Andrey Chernih (https://github.com/andreychernih/chef-teamcity)
+* Antek Baranksi (https://github.com/Sauraus)
