@@ -35,43 +35,6 @@
 *No dependencies defined*
 <% end %>
 
-# Attributes
-### `node['rblx_teamcity']`...
-
-<table>
-  <tbody>
-<% unless attributes.empty? %>
-<% 
-attributes.each do |name, description, default, choice|
-fname = name.gsub(/^node\['rblx_jenkins'\]/, '')
-fchoice = choice.empty? ? '' : JSON.pretty_generate(choice)
-
-if (default.is_a?(Hash) || default.is_a?(Array)) && !default.empty?
-  fdefault = "<pre><code class=\"json\">#{JSON.pretty_generate(default)}\n</code></pre>"
-else
-  fdefault = "<code>#{default.to_s}</code>"
-end
-
-desc_field = "#{description}<br>"
-desc_field += "<br><strong>Choices:</strong> <pre><code class=\"json\">#{fchoice}\n</code></pre>" unless fchoice.empty?
-desc_field += "<br><strong>Default:</strong> #{fdefault}"
-%>
-    <tr>
-      <td>
-        <code><%= fname %></code>
-        <br><br>
-        <div><%= desc_field %></div>
-      </td>
-    </tr>
-<% end %>
-<% else %>
-    <tr>
-      <td><em>No attributes defined</em></td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
 # Recipes
 
 <% unless recipes.empty? %>
@@ -99,6 +62,44 @@ desc_field += "<br><strong>Default:</strong> #{fdefault}"
 *No recipes defined*
 
 <% end -%>
+
+# Attributes
+### `node['rblx_teamcity']`...
+
+<table>
+  <tbody>
+<% unless attributes.empty? %>
+<% 
+attributes.each do |name, description, default, choice|
+fname = name.gsub(/^node\['rblx_jenkins'\]/, '')
+fchoice = choice.empty? ? '' : JSON.pretty_generate(choice)
+
+if (default.is_a?(Hash) || default.is_a?(Array)) && !default.empty?
+  fdefault = "<pre><code class=\"json\">#{JSON.pretty_generate(default)}\n</code></pre>"
+else
+  fdefault = "<code>#{default.to_s}</code>"
+end
+
+desc_field = "#{description}<br>"
+desc_field += "<br><strong>Choices:</strong> <pre><code class=\"json\">#{fchoice}\n</code></pre>" unless fchoice.empty?
+desc_field += "<br><strong>Default:</strong> #{fdefault}"
+%>
+    <tr>
+      <td>
+        <code><%= fname %></code>
+        <br>
+        <div><%= desc_field %></div>
+      </td>
+    </tr>
+<% end %>
+<% else %>
+    <tr>
+      <td><em>No attributes defined</em></td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
 <% unless definitions.empty? -%>
 # Definitions
 
@@ -174,8 +175,11 @@ desc_field += "<br><strong>Default:</strong> #{fdefault}"
 <%= fragments[key] %>
 <br>
 <% end -%>
+
+# Info
+
 <% unless fragments['credit'] -%>
-# License and Maintainer
+## License and Maintainer
 
 Maintainer:: <%= maintainer %> (<<%= maintainer_email %>>)
 <% unless source_url.empty? -%>
@@ -191,3 +195,8 @@ License:: <%= license %>
 <% else -%>
 <%= fragments['credit'] -%>
 <% end -%>
+
+## Credits
+
+* Andrey Chernih (https://github.com/andreychernih/chef-teamcity)
+* Antek Baranksi (https://github.com/Sauraus)
