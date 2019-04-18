@@ -1,10 +1,14 @@
 name             'teamcity'
-maintainer       'Antek S. Baranski'
-maintainer_email 'antek.baranski@gmail.com'
-license          'Apache License, Version 2.0'
+maintainer       'Roblox'
+maintainer_email 'info@roblox.com'
+license          'Apache-2.0'
 description      'Installs TeamCity server and agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '4.1.0'
+
+source_url 'https://github.com/Roblox/chef-teamcity'
+issues_url 'https://github.com/Roblox/chef-teamcity/issues'
+chef_version '>= 13.4'
 
 recipe 'teamcity::default', 'Installs TeamCity Agent on target OS'
 recipe 'teamcity::server', 'Installs TeamCity Server on CentOS or Ubuntu'
