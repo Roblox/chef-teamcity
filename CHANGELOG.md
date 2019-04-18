@@ -1,23 +1,23 @@
 # Change Log
 
-### 4.1.0
+## 4.1.0
 * Compensate for error on MacOS 10.14 (https://github.com/chef/chef/issues/7763)
 * Update Java cookbook versions
 
-### 4.0.0
+## 4.0.0
 * Auto-include Java
 * Bump Java cookbook version
 
-### 3.1.1
+## 3.1.1
 * Bump java version to ~> 2.0.1
 
-### 3.1.0
+## 3.1.0
 * Generalize .kitchen.yml
 * Add windows to .kitchen.yml
 * Include seven_zip
 * Add tests for added code
 
-### 3.0.8
+## 3.0.8
 * Bump ark ~> 3.0
 
 ##3.0.7
