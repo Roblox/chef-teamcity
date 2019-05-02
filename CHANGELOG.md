@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.2.0
+* Update Java cookbook version with dependency fix
+
 ## 4.1.0
 * Compensate for error on MacOS 10.14 (https://github.com/chef/chef/issues/7763)
 * Update Java cookbook versions
