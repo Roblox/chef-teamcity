@@ -17,7 +17,7 @@ Installs TeamCity server and agent
 
 * ark (~> 3.0)
 * homebrew (~> 4.2)
-* java (~> 3.2.0)
+* java (~> 4.0)
 * runit (~> 4.0)
 * seven_zip
 * systemd
