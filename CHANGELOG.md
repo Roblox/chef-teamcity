@@ -1,5 +1,10 @@
 # Change Log
 
+## 4.2.1
+* Fix CVE-2018-1000201
+  * Expand entries in .gitignore
+  * Remove Gemfile.lock
+
 ## 4.2.0
 * Update Java cookbook version with dependency fix
 
