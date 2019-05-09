@@ -26,6 +26,7 @@ default['teamcity']['server']['pid_file'] = '/usr/local/teamcity-server/logs/cat
 default['teamcity']['server']['data_path'] = '/var/teamcity-server/data'
 
 # TeamCity Agent Attributes
+# <> Install directory for agent
 default['teamcity']['agent']['install_dir'] = platform_family?('windows') ? 'C:\\' : '/opt'
 default['teamcity']['agent']['work_dir'] = platform_family?('windows') ? 'C:\\teamcity-agent' : '/var/teamcity-agent'
 default['teamcity']['agent']['name'] = node['hostname']

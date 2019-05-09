@@ -1,5 +1,8 @@
 # Change Log
 
+## Unreleased
+* Fixed README.md attribute listing
+
 ## 4.2.1
 * Fix CVE-2018-1000201
   * Expand entries in .gitignore

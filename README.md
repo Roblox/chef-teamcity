@@ -29,155 +29,176 @@ Installs TeamCity server and agent
 
 
 # Attributes
-### `node['rblx_teamcity']`...
+### `node['teamcity']`...
 
 <table>
   <tbody>
     <tr>
       <td>
-        <code>node['teamcity']['server']['source_url']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>https://download.jetbrains.com/teamcity/TeamCity-2017.2.4.tar.gz</code></div>
+        <code>['server']['source_url']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>https://download.jetbrains.com/teamcity/TeamCity-2017.2.4.tar.gz</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['checksum']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>8d21480da9392709efd6dd6cb7b513211a45e462909799b5b880e36def1522fc</code></div>
+        <code>['server']['checksum']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>8d21480da9392709efd6dd6cb7b513211a45e462909799b5b880e36def1522fc</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['url']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>http://localhost:8111</code></div>
+        <code>['server']['url']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>http://localhost:8111</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['port']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>8111</code></div>
+        <code>['server']['port']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>8111</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['user']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>teamcity</code></div>
+        <code>['server']['user']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>teamcity</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['group']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>users</code></div>
+        <code>['server']['group']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>users</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['install_dir']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>/opt</code></div>
+        <code>['server']['install_dir']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>/opt</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['pid_file']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>/usr/local/teamcity-server/logs/catalina.pid</code></div>
+        <code>['server']['pid_file']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>/usr/local/teamcity-server/logs/catalina.pid</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['server']['data_path']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>/var/teamcity-server/data</code></div>
+        <code>['server']['data_path']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>/var/teamcity-server/data</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['install_dir']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\' : '/opt</code></div>
+        <code>['agent']['install_dir']</code>
+      </td>
+      <td>
+        Install directory for agent<br><strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\' : '/opt</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['work_dir']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\teamcity-agent' : '/var/teamcity-agent</code></div>
+        <code>['agent']['work_dir']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\teamcity-agent' : '/var/teamcity-agent</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['name']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>node['hostname']</code></div>
+        <code>['agent']['name']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>node['hostname']</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['user']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>teamcity</code></div>
+        <code>['agent']['user']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>teamcity</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['uid']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>1023 if platform_family?('mac_os_x')</code></div>
+        <code>['agent']['uid']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>1023 if platform_family?('mac_os_x')</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['group']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>platform_family?('mac_os_x') ? 'staff' : 'users</code></div>
+        <code>['agent']['group']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>platform_family?('mac_os_x') ? 'staff' : 'users</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['home']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>case node['platform_family']</code></div>
+        <code>['agent']['home']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>case node['platform_family']</code>
       </td>
     </tr>
     <tr>
       <td>
-        <code>node['teamcity']['agent']['windows_service']['startuptype']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>Automatic</code></div>
+        <code>['agent']['windows_service']['startuptype']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>Automatic</code>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['jdk_version']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>platform_family?('mac_os_x') ? '' : '8</code></div>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>platform_family?('mac_os_x') ? '' : '8</code>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['windows']['url']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>nil</code></div>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>nil</code>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['windows']['package_name']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>Java SE Development Kit 8 Update 152 (64-bit)</code></div>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>Java SE Development Kit 8 Update 152 (64-bit)</code>
       </td>
     </tr>
     <tr>
       <td>
         <code>node['java']['windows']['checksum']</code>
-        <br>
-        <div><br><br><strong>Default:</strong> <code>nil</code></div>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>nil</code>
       </td>
     </tr>
   </tbody>
