@@ -31,7 +31,6 @@ Gemfile.lock
 # YARD artifacts
 .yardoc
 _yardoc
-doc/
 .idea
 
 # chef stuff
