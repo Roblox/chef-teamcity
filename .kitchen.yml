@@ -5,7 +5,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: 13
+  require_chef_omnibus: 13.10.4
   always_update_cookbooks: true
 
 platforms:
@@ -27,14 +27,12 @@ platforms:
         - ["private_network", {ip: '10.10.10.13'}]
   - name: windows-2016
     driver:
-      box_url: '<%= ENV["KITCHEN_WINDOWS_BOX_URL"] %>'
-      box_check_update: false
-      gui: false
+      box_url: 'http://webdav.roblox.local/boxes/windows-2016.json'
       customize:
         cpus: 2
         memory: 4096
       network:
-        - ["private_network", {ip: '10.10.10.14'}]
+        - ["private_network", {ip: '192.168.42.15'}]
 suites:
   - name: default
     run_list:

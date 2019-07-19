@@ -43,6 +43,7 @@ default['teamcity']['agent']['home'] = case node['platform_family']
                                        end
 
 default['teamcity']['agent']['windows_service']['startuptype'] = 'Automatic'
+default['teamcity']['ignore_dsc_errors'] = true
 
 # NOTE: Brew does not tag the latest java version with an ID, therefore we must 'nil' it to get the latest.
 default['java']['jdk_version'] = platform_family?('mac_os_x') ? '' : '8'

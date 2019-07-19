@@ -171,6 +171,14 @@ Installs TeamCity server and agent
     </tr>
     <tr>
       <td>
+        <code>['ignore_dsc_errors']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>true</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <code>node['java']['jdk_version']</code>
       </td>
       <td>
