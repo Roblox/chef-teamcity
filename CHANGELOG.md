@@ -1,6 +1,7 @@
 # Change Log
 
-## Unreleased
+## 4.2.2
+* Added a workaround for DSC bug when it doesn't behave in idempotent way with an existing Windows service
 * Fixed README.md (attribute listing and use `doc/`)
 
 ## 4.2.1

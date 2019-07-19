@@ -37,6 +37,7 @@ dsc_resource 'Setup TeamCity BuildAgent Service' do
   property :description, 'TeamCity Build Agent Service'
   property :displayname, 'TeamCity Build Agent'
   property :path, "#{node['teamcity']['agent']['work_dir']}\\launcher\\bin\\TeamCityAgentService-windows-x86-32.exe -s #{node['teamcity']['agent']['work_dir']}\\launcher\\conf\\wrapper.conf"
+  ignore_failure node['teamcity']['ignore_dsc_errors']
 end
 
 # We declare this here such that downstream dependencies can restart the service to pick up ENV variables.
