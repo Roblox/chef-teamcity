@@ -27,7 +27,7 @@ platforms:
         - ["private_network", {ip: '10.10.10.13'}]
   - name: windows-2016
     driver:
-      box_url: 'http://webdav.roblox.local/boxes/windows-2016.json'
+      box_url: '<%= ENV["KITCHEN_WINDOWS_BOX_URL"] %>'
       customize:
         cpus: 2
         memory: 4096
