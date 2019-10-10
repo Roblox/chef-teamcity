@@ -1,5 +1,8 @@
 # Change Log
 
+## 4.3.0
+* Bump homebrew vresion to ~> 5.0
+
 ## 4.2.2
 * Added a workaround for DSC bug when it doesn't behave in idempotent way with an existing Windows service
 * Fixed README.md (attribute listing and use `doc/`)
