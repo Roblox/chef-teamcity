@@ -17,8 +17,6 @@
 # Do not run this recipe if the node is not a Linux node
 return unless node['os'] == 'linux'
 
-root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
-
 systemd_service 'teamcity_agent' do
   unit_description 'TeamCity Agent'
   after 'network.target'
@@ -29,9 +27,9 @@ systemd_service 'teamcity_agent' do
 
   service do
     type 'forking'
-    exec_start ::File.join(root_dir, 'bin', 'agent.sh start')
-    exec_stop ::File.join(root_dir, 'bin', 'agent.sh stop')
-    pid_file ::File.join(root_dir, 'logs', 'buildAgent.pid')
+    exec_start ::File.join(node['teamcity']['agent']['install_dir'], 'bin', 'agent.sh start')
+    exec_stop ::File.join(node['teamcity']['agent']['install_dir'], 'bin', 'agent.sh stop')
+    pid_file ::File.join(node['teamcity']['agent']['install_dir'], 'logs', 'buildAgent.pid')
     syslog_identifier 'teamcity_agent'
     restart 'on-failure'
     restart_sec 5

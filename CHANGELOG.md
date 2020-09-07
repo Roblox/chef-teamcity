@@ -1,5 +1,12 @@
 # Change Log
 
+## 5.0.0
+* Rework attribute for agent's `install_dir`
+* Update macOS plist template to accommodate TeamCity updates
+* Update macOS' launch command
+* Update default server version
+* Add CLA bot
+
 ## 4.3.0
 * Bump homebrew vresion to ~> 5.0
 

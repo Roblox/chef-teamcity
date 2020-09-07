@@ -15,7 +15,7 @@
 # limitations under the License.
 
 # TeamCity Server Attributes
-default['teamcity']['server']['source_url'] = 'https://download.jetbrains.com/teamcity/TeamCity-2017.2.4.tar.gz'
+default['teamcity']['server']['source_url'] = 'https://download.jetbrains.com/teamcity/TeamCity-2020.1.3.tar.gz'
 default['teamcity']['server']['checksum'] = '8d21480da9392709efd6dd6cb7b513211a45e462909799b5b880e36def1522fc'
 default['teamcity']['server']['url'] = 'http://localhost:8111'
 default['teamcity']['server']['port'] = '8111'
@@ -27,7 +27,7 @@ default['teamcity']['server']['data_path'] = '/var/teamcity-server/data'
 
 # TeamCity Agent Attributes
 # <> Install directory for agent
-default['teamcity']['agent']['install_dir'] = platform_family?('windows') ? 'C:\\' : '/opt'
+default['teamcity']['agent']['install_dir'] = platform_family?('windows') ? 'C:\\teamcity-agent\\' : '/opt/teamcity-agent'
 default['teamcity']['agent']['work_dir'] = platform_family?('windows') ? 'C:\\teamcity-agent' : '/var/teamcity-agent'
 default['teamcity']['agent']['name'] = node['hostname']
 default['teamcity']['agent']['user'] = 'teamcity'
@@ -41,6 +41,9 @@ default['teamcity']['agent']['home'] = case node['platform_family']
                                        else
                                          '/home'
                                        end
+
+default['teamcity']['agent']['stdout_path'] = '/dev/null'
+default['teamcity']['agent']['launch_command'] = 'bin/agent.sh run'
 
 default['teamcity']['agent']['windows_service']['startuptype'] = 'Automatic'
 default['teamcity']['ignore_dsc_errors'] = true

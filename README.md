@@ -16,7 +16,7 @@ Installs TeamCity server and agent
 ## Cookbooks:
 
 * ark (~> 3.0)
-* homebrew (~> 4.2)
+* homebrew (~> 5.0)
 * java (~> 4.0)
 * runit (~> 4.0)
 * seven_zip
@@ -38,7 +38,7 @@ Installs TeamCity server and agent
         <code>['server']['source_url']</code>
       </td>
       <td>
-        <strong>Default:</strong> <code>https://download.jetbrains.com/teamcity/TeamCity-2017.2.4.tar.gz</code>
+        <strong>Default:</strong> <code>https://download.jetbrains.com/teamcity/TeamCity-2020.1.3.tar.gz</code>
       </td>
     </tr>
     <tr>
@@ -110,7 +110,7 @@ Installs TeamCity server and agent
         <code>['agent']['install_dir']</code>
       </td>
       <td>
-        Install directory for agent<br><strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\' : '/opt</code>
+        Install directory for agent<br><strong>Default:</strong> <code>platform_family?('windows') ? 'C:\\teamcity-agent\\' : '/opt/teamcity-agent</code>
       </td>
     </tr>
     <tr>
@@ -159,6 +159,22 @@ Installs TeamCity server and agent
       </td>
       <td>
         <strong>Default:</strong> <code>case node['platform_family']</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>['agent']['stdout_path']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>/dev/null</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>['agent']['launch_command']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>bin/agent.sh run</code>
       </td>
     </tr>
     <tr>
