@@ -40,8 +40,6 @@ directory home_dir do
   mode '00755'
 end
 
-root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
-
 source = node['teamcity']['agent']['source_url']
 source = "#{node['teamcity']['server']['url']}/update/buildAgent.zip" if source.nil?
 
@@ -56,9 +54,12 @@ else
   include_recipe 'java'
 end
 
-ark 'teamcity-agent' do
+target_dir = ::File.basename(node['teamcity']['agent']['install_dir'])
+unpack_dir = ::File.dirname(node['teamcity']['agent']['install_dir'])
+
+ark target_dir do
   url source
-  path node['teamcity']['agent']['install_dir']
+  path unpack_dir
   strip_components 0
   owner node['teamcity']['agent']['user']
   group node['teamcity']['agent']['group']
@@ -80,21 +81,21 @@ directory ::File.join(node['teamcity']['agent']['work_dir'], 'logs') do
   action :create
 end
 
-directory ::File.join(root_dir, 'temp') do
+directory ::File.join(node['teamcity']['agent']['install_dir'], 'temp') do
   owner node['teamcity']['agent']['user']
   group node['teamcity']['agent']['group']
   mode '00755'
   action :create
 end
 
-directory ::File.join(root_dir, 'conf') do
+directory ::File.join(node['teamcity']['agent']['install_dir'], 'conf') do
   owner node['teamcity']['agent']['user']
   group node['teamcity']['agent']['group']
   mode '00755'
   action :create
 end
 
-template ::File.join(root_dir, 'conf', 'buildAgent.properties') do
+template ::File.join(node['teamcity']['agent']['install_dir'], 'conf', 'buildAgent.properties') do
   source 'buildAgent.properties.erb'
   variables serverurl: node['teamcity']['server']['url'],
             name: node['teamcity']['agent']['name'],
@@ -103,8 +104,8 @@ template ::File.join(root_dir, 'conf', 'buildAgent.properties') do
   group node['teamcity']['agent']['group']
   mode '00644'
   only_if do
-    if ::File.exist?(::File.join(root_dir, 'conf', 'buildAgent.properties'))
-      ::File.foreach(::File.join(root_dir, 'conf', 'buildAgent.properties')).grep(/authorizationToken=$/).any?
+    if ::File.exist?(::File.join(node['teamcity']['agent']['install_dir'], 'conf', 'buildAgent.properties'))
+      ::File.foreach(::File.join(node['teamcity']['agent']['install_dir'], 'conf', 'buildAgent.properties')).grep(/authorizationToken=$/).any?
     else
       true
     end

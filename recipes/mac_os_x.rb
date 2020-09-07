@@ -28,7 +28,6 @@ homebrew_tap 'xfreebird/utils'
 package 'kcpassword'
 
 home_dir = ::File.join(node['teamcity']['agent']['home'], node['teamcity']['agent']['user'])
-root_dir = ::File.join(node['teamcity']['agent']['install_dir'], 'teamcity-agent')
 
 # NOTE: We assume the user got created if the
 # #{home_dir}/Library/Preferences/com.apple.SetupAssistant.plist file exists.
@@ -76,8 +75,11 @@ end
 
 template ::File.join(home_dir, 'Library', 'LaunchAgents', 'jetbrains.teamcity.BuildAgent.plist') do
   source 'jetbrains.teamcity.BuildAgent.plist.erb'
-  variables work_dir: node['teamcity']['agent']['work_dir'],
-            path: root_dir
+  variables(
+    launch_command: node['teamcity']['agent']['launch_command'],
+    stdout_path: node['teamcity']['agent']['stdout_path'],
+    working_dir: node['teamcity']['agent']['install_dir']
+  )
   owner node['teamcity']['agent']['user']
   group node['teamcity']['agent']['group']
   mode '00755'
