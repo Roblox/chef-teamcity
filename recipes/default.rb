@@ -95,21 +95,44 @@ directory ::File.join(node['teamcity']['agent']['install_dir'], 'conf') do
   action :create
 end
 
-template ::File.join(node['teamcity']['agent']['install_dir'], 'conf', 'buildAgent.properties') do
+properties_file = 'buildAgent.properties'
+properties_path = ::File.join(node['teamcity']['agent']['install_dir'], 'conf', properties_file)
+
+# If agent was previously authorized, re-use the token
+ruby_block 'Get authorizationToken' do
+  block do
+    auth_token = ''
+    Chef::Log.debug("Checking #{properties_file} if token already exists")
+    if ::File.exist?(properties_path)
+      Chef::Log.debug("TeamCity #{properties_file} file found. Reusing token.")
+      auth_token = File.read(properties_path).scan(/^authorizationToken=(.*)$/).last.first
+    end
+    node.default['teamcity']['agent']['auth_token'] = auth_token
+  end
+end
+
+# Properties to add to file. Split below to organization in file.
+# `transform_keys` isn't available until Ruby 2.5
+properties = node['teamcity']['agent']['properties'].map { |k, v| [k.to_sym, v] }.to_h
+# Note: This does not currently handle reloading build agent service.
+# Thus, if properties file changes, the agent must be reloaded for properties to appear on server.
+# Careful : as soon as a change is detected, the agent reloads on the TeamCity server
+template properties_file do
+  path properties_path
   source 'buildAgent.properties.erb'
-  variables serverurl: node['teamcity']['server']['url'],
-            name: node['teamcity']['agent']['name'],
-            work_dir: node['teamcity']['agent']['work_dir']
+  variables(
+    server_url: node['teamcity']['server']['url'],
+    name: node['teamcity']['agent']['name'],
+    work_dir: node['teamcity']['agent']['work_dir'],
+    auth_token: lazy { node['teamcity']['agent']['auth_token'] },
+    opt_properties: properties.reject { |k, _| [:env, :system].include?(k) },
+    env_properties: properties.select { |k, _| [:env].include?(k) },
+    system_properties: properties.select { |k, _| [:system].include?(k) }
+  )
   owner node['teamcity']['agent']['user']
   group node['teamcity']['agent']['group']
   mode '00644'
-  only_if do
-    if ::File.exist?(::File.join(node['teamcity']['agent']['install_dir'], 'conf', 'buildAgent.properties'))
-      ::File.foreach(::File.join(node['teamcity']['agent']['install_dir'], 'conf', 'buildAgent.properties')).grep(/authorizationToken=$/).any?
-    else
-      true
-    end
-  end
+  only_if { !::File.exist?(properties_path) || node['teamcity']['agent']['update_properties_file'] }
 end
 
 case node['platform_family']

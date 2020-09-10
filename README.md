@@ -163,6 +163,22 @@ Installs TeamCity server and agent
     </tr>
     <tr>
       <td>
+        <code>['agent']['update_properties_file']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>false</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <code>['agent']['properties']</code>
+      </td>
+      <td>
+        Two dimensional has of additional properties that are added to conf/buildAgent.properties file<br><strong>Default:</strong> <code>{ ... }</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <code>['agent']['stdout_path']</code>
       </td>
       <td>
