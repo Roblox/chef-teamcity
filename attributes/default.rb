@@ -42,6 +42,17 @@ default['teamcity']['agent']['home'] = case node['platform_family']
                                          '/home'
                                        end
 
+# <> Update preoprties file after it's been installed
+# Default to false for backwards compabitility where it would not update if already exists.
+# Note: This does not effect the initial install of the file
+default['teamcity']['agent']['update_properties_file'] = false
+
+# <> Two dimensional has of additional properties that are added to conf/buildAgent.properties file
+default['teamcity']['agent']['properties'] = {
+  env: {},
+  system: {},
+}
+
 default['teamcity']['agent']['stdout_path'] = '/dev/null'
 default['teamcity']['agent']['launch_command'] = 'bin/agent.sh run'
 

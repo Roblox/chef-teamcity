@@ -1,5 +1,9 @@
 # Change Log
 
+## 5.1.0
+* Allow update to buildAgent.properties even if it already exists
+* Add ability to set agent properties in buildAgent.properties
+
 ## 5.0.0
 * Rework attribute for agent's `install_dir`
 * Update macOS plist template to accommodate TeamCity updates
