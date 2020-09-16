@@ -48,10 +48,13 @@ bash 'Create Mac OS X teamcity agent user' do
     sw_vers=$(sw_vers -productVersion)
     sw_build=$(sw_vers -buildVersion)
     mkdir -p #{home_dir}/Library/Preferences
-    /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant DidSeeCloudSetup -bool TRUE
-    /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant GestureMovieSeen none
-    /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastSeenCloudProductVersion "${sw_vers}"
+    #{node['teamcity']['agent']['mac_os_x']['setup_assistant'].map do |k, v|
+        "/usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant #{k} #{v}"
+      end.join("\n")}
+    /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastPreLoginTasksPerformedBuild "${sw_build}"
+    /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastPreLoginTasksPerformedVersion "${sw_vers}"
     /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastSeenBuddyBuildVersion "${sw_build}"
+    /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastSeenCloudProductVersion "${sw_vers}"
     /usr/sbin/chown -R #{node['teamcity']['agent']['user']}:#{node['teamcity']['agent']['group']} #{home_dir}
   EOH
   sensitive true

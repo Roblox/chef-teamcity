@@ -1,5 +1,8 @@
 # Change Log
 
+## 5.1.1
+* Fix: latest versions of macOS have new items for Setup Assistant
+
 ## 5.1.0
 * Allow update to buildAgent.properties even if it already exists
 * Add ability to set agent properties in buildAgent.properties
