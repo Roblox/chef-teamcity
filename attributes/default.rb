@@ -56,6 +56,19 @@ default['teamcity']['agent']['properties'] = {
 default['teamcity']['agent']['stdout_path'] = '/dev/null'
 default['teamcity']['agent']['launch_command'] = 'bin/agent.sh run'
 
+# <> Values written to the SetupAssistant plist for new TC agent user
+# Command doesn't use quotes, thus string values need to have them defined here.
+default['teamcity']['agent']['mac_os_x']['setup_assistant'] = {
+  DidSeeAppearanceSetup: '1',
+  DidSeeCloudSetup: '1',
+  DidSeeScreenTime: '1',
+  DidSeePrivacy: '1',
+  DidSeeSiriSetup: '1',
+  DidSeeTrueTone: '1',
+  DidSeeiCloudLoginForStorageServices: '1',
+  GestureMovieSeen: 'none',
+}
+
 default['teamcity']['agent']['windows_service']['startuptype'] = 'Automatic'
 default['teamcity']['ignore_dsc_errors'] = true
 

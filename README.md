@@ -195,6 +195,14 @@ Installs TeamCity server and agent
     </tr>
     <tr>
       <td>
+        <code>['agent']['mac_os_x']['setup_assistant']</code>
+      </td>
+      <td>
+        <strong>Default:</strong> <code>{ ... }</code>
+      </td>
+    </tr>
+    <tr>
+      <td>
         <code>['agent']['windows_service']['startuptype']</code>
       </td>
       <td>
