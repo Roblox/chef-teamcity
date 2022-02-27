@@ -15,12 +15,12 @@ Installs TeamCity server and agent
 
 ## Cookbooks:
 
-* ark (~> 3.0)
-* homebrew (~> 5.0)
-* java (~> 4.0)
-* runit (~> 4.0)
-* seven_zip
-* systemd
+* [ark](https://github.com/chef-cookbooks/ark) (~> 3.0)
+* [homebrew](https://github.com/chef-cookbooks/homebrew) (~> 5.0)
+* [java](https://github.com/sous-chefs/java) (~> 4.0)
+* [runit](https://github.com/chef-cookbooks/runit) (~> 4.0)
+* [seven_zip](https://github.com/sous-chefs/seven_zip)
+* [systemd](https://github.com/nathwill/chef-systemd)
 
 # Recipes
 
