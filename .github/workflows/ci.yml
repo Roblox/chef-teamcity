@@ -20,10 +20,12 @@ jobs:
           cookstyle --version
           cookstyle ./
 
-  yamllint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Run yaml Lint
-        uses: actionshub/yamllint@main
+  # Re-enable when available for our enterprise
+  # Also add mdl
+  #yamllint:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Check out code
+  #      uses: actions/checkout@v2
+  #    - name: Run yaml Lint
+  #      uses: actionshub/yamllint@main
