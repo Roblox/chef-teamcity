@@ -1,5 +1,10 @@
 # Change Log
 
+## 5.2.0
+* Add ability to do multi-nested build properties
+* Add some CI testing
+* Fix: build properties lazy loaded and work with policyfiles
+
 ## 5.1.1
 * Fix: latest versions of macOS have new items for Setup Assistant
 
