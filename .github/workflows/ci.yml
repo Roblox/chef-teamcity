@@ -22,6 +22,7 @@ jobs:
 
   # Re-enable when available for our enterprise
   # Also add mdl
+  # similar to https://github.com/sous-chefs/nodejs/blob/main/.github/workflows/ci.yml
   #yamllint:
   #  runs-on: ubuntu-latest
   #  steps:
