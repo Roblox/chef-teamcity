@@ -113,7 +113,11 @@ end
 
 # Properties to add to file. Split below to organization in file.
 # `transform_keys` isn't available until Ruby 2.5
-properties = node['teamcity']['agent']['properties'].map { |k, v| [k.to_sym, v] }.to_h
+# Use lambda to delay loading of properties to allow for on-the-fly overrides in other recipes.
+props_lambda = lambda {
+  node['teamcity']['agent']['properties'].map { |k, v| [k.to_sym, v] }.to_h
+}
+
 # Note: This does not currently handle reloading build agent service.
 # Thus, if properties file changes, the agent must be reloaded for properties to appear on server.
 # Careful : as soon as a change is detected, the agent reloads on the TeamCity server
@@ -125,9 +129,9 @@ template properties_file do
     name: node['teamcity']['agent']['name'],
     work_dir: node['teamcity']['agent']['work_dir'],
     auth_token: lazy { node['teamcity']['agent']['auth_token'] },
-    opt_properties: properties.reject { |k, _| [:env, :system].include?(k) },
-    env_properties: properties.select { |k, _| [:env].include?(k) },
-    system_properties: properties.select { |k, _| [:system].include?(k) }
+    opt_properties: lazy { props_lambda.call.reject { |k, _| [:env, :system].include?(k) }.flatten },
+    env_properties: lazy { props_lambda.call.select { |k, _| [:env].include?(k) }.flatten },
+    system_properties: lazy { props_lambda.call.select { |k, _| [:system].include?(k) }.flatten }
   )
   owner node['teamcity']['agent']['user']
   group node['teamcity']['agent']['group']

@@ -1,0 +1,21 @@
+---
+name: ci
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  cookstyle:
+    runs-on: ubuntu-latest
+    container:
+      image: chefdk:3.14.16
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cookstyle
+        run: |
+          chef --version
+          cookstyle --version
+          cookstyle ./

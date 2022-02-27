@@ -38,10 +38,8 @@ systemDir=<%= @work_dir %>/system
 ## It is automatically generated and saved back on the first agent connection to the server.
 authorizationToken=<%= @auth_token %>
 
-<% @opt_properties.each do |key, props| %>
-<% props.each do |name, value| %>
-<%= "#{key}.#{name}=#{value}" %>
-<% end %>
+<% @opt_properties.each do |name, value| %>
+<%= "#{name}=#{value}" %>
 <% end %>
 
 ######################################
