@@ -1,5 +1,8 @@
 # Change Log
 
+## 5.2.1
+* Fix Hash flatten function name - incorrectly superceded library name
+
 ## 5.2.0
 * Add ability to do multi-nested build properties
 * Add some CI testing

@@ -129,9 +129,9 @@ template properties_file do
     name: node['teamcity']['agent']['name'],
     work_dir: node['teamcity']['agent']['work_dir'],
     auth_token: lazy { node['teamcity']['agent']['auth_token'] },
-    opt_properties: lazy { props_lambda.call.reject { |k, _| [:env, :system].include?(k) }.flatten },
-    env_properties: lazy { props_lambda.call.select { |k, _| [:env].include?(k) }.flatten },
-    system_properties: lazy { props_lambda.call.select { |k, _| [:system].include?(k) }.flatten }
+    opt_properties: lazy { props_lambda.call.reject { |k, _| [:env, :system].include?(k) }.flatten_values },
+    env_properties: lazy { props_lambda.call.select { |k, _| [:env].include?(k) }.flatten_values },
+    system_properties: lazy { props_lambda.call.select { |k, _| [:system].include?(k) }.flatten_values }
   )
   owner node['teamcity']['agent']['user']
   group node['teamcity']['agent']['group']
