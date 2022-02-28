@@ -15,10 +15,10 @@
 
 class Hash
   # To convert nested Hash to dot-delimited key. Easier for use in template.
-  def flatten
+  def flatten_values
     each_with_object({}) do |(k, v), h|
       if v.is_a? Hash
-        v.flatten.map do |h_k, h_v|
+        v.flatten_values.map do |h_k, h_v|
           h["#{k}.#{h_k}".to_sym] = h_v
         end
       else

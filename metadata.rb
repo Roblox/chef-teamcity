@@ -4,7 +4,7 @@ maintainer_email 'info@roblox.com'
 license          'Apache-2.0'
 description      'Installs TeamCity server and agent'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '5.2.0'
+version          '5.2.1'
 
 source_url 'https://github.com/Roblox/chef-teamcity'
 issues_url 'https://github.com/Roblox/chef-teamcity/issues'
