@@ -1,6 +1,9 @@
 # Change Log
 
 ## 5.2.1
+* Fix buildAgent.properties variable loop
+
+## 5.2.1
 * Fix Hash flatten function name - incorrectly superceded library name
 
 ## 5.2.0
