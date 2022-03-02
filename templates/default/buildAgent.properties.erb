@@ -54,14 +54,14 @@ authorizationToken=<%= @auth_token %>
 
 #system.exampleProperty=example Value
 
-<% @system_properties[:system].each do |name, value| %>
-system.<%= "#{name}=#{value}" %>
-<% end unless @system_properties[:system].nil? %>
+<% @system_properties.each do |name, value| %>
+<%= "#{name}=#{value}" %>
+<% end %>
 
 # Environment Variables
 
 #env.exampleEnvVar=example Env Value
 
-<% @env_properties[:env].each do |name, value| %>
-env.<%= "#{name}=#{value}" %>
-<% end unless @env_properties[:env].nil? %>
+<% @env_properties.each do |name, value| %>
+<%= "#{name}=#{value}" %>
+<% end %>
