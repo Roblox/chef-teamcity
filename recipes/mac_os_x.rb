@@ -23,9 +23,14 @@ require 'shellwords'
 require 'securerandom'
 password = SecureRandom.base64(16)
 
-include_recipe 'homebrew'
-homebrew_tap 'xfreebird/utils'
-package 'kcpassword'
+# Used for auto-login password
+cookbook_file '/usr/local/bin/kcpassword.sh' do
+  source 'kcpassword.sh'
+  owner 'root'
+  group 'admin'
+  mode '0755'
+  action :create
+end
 
 home_dir = ::File.join(node['teamcity']['agent']['home'], node['teamcity']['agent']['user'])
 
@@ -43,7 +48,6 @@ bash 'Create Mac OS X teamcity agent user' do
     /usr/bin/dscl . -create #{home_dir} NFSHomeDirectory #{home_dir}
     /usr/bin/dscl . -passwd #{home_dir} #{Shellwords.escape(password)}
     /usr/sbin/createhomedir -c -u #{node['teamcity']['agent']['user']}
-    /usr/local/bin/kcpassword #{Shellwords.escape(password)}
     /usr/bin/defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser '#{node['teamcity']['agent']['user']}'
     sw_vers=$(sw_vers -productVersion)
     sw_build=$(sw_vers -buildVersion)
@@ -56,6 +60,11 @@ bash 'Create Mac OS X teamcity agent user' do
     /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastSeenBuddyBuildVersion "${sw_build}"
     /usr/bin/defaults write #{home_dir}/Library/Preferences/com.apple.SetupAssistant LastSeenCloudProductVersion "${sw_vers}"
     /usr/sbin/chown -R #{node['teamcity']['agent']['user']}:#{node['teamcity']['agent']['group']} #{home_dir}
+    /usr/local/bin/kcpassword.sh #{Shellwords.escape(password)}
+    if [ $? -ne 0 ]; then
+      echo "ERROR! Problem setting auto-login password!"
+      exit 1
+    fi
   EOH
   sensitive true
   not_if { ::File.exist?("#{home_dir}/Library/Preferences/com.apple.SetupAssistant.plist") }
