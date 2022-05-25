@@ -1,6 +1,9 @@
 # Change Log
 
-## 5.2.1
+## 5.3.0
+* Swap kcpassword script to Bash to lessen dependence on deprecated Python
+
+## 5.2.2
 * Fix buildAgent.properties variable loop
 
 ## 5.2.1
